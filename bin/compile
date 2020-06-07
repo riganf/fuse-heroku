@@ -18,7 +18,7 @@ cd $VENDOR_DIR
 mkdir -p fuse
 cd fuse
 wget -q $DOWNLOAD_URL
-unzip -qqj $FILE
+unzip -qqjf $FILE
 rm -rf $FILE
 
 echo "exporting PATH" | indent

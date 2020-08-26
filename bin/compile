@@ -11,14 +11,13 @@ DOWNLOAD_URL="https://github.com/libfuse/libfuse/releases/download/fuse-3.9.3/fu
 
 echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
 
-cd $BUILD_DIR
-mkdir -p $VENDOR_DIR
-cd $VENDOR_DIR
-mkdir -p fuse
-cd fuse
-curl -L --silent $DOWNLOAD_URL | tar xJ --strip-components=1
+wget -O "fuse.tar.xz" "https://github.com/libfuse/libfuse/releases/download/fuse-3.9.3/fuse-3.9.3.tar.xz"
+tar -xf fuse.tar.xz
+rm -f fuse.tar.xz
+mv fuse* fuse
 
-echo "exporting PATH" | indent
-PROFILE_PATH="$BUILD_DIR/.profile.d/fuse.sh"
-mkdir -p $(dirname $PROFILE_PATH)
-echo 'export PATH="$PATH:${HOME}/vendor/fuse"' >> $PROFILE_PATH
+cd fuse
+mkdir build
+cd build
+meson ..
+ninja install
